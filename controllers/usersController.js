@@ -40,10 +40,10 @@ const login = (req, res, next) => {
 
 // Create User Handler
 const createUser = (req, res, next) => {
-  const { email, password, name, about, avatar } = req.body;
+  const { email, password, name } = req.body;
   return bcrypt
     .hash(password, 10)
-    .then((hash) => User.create({ email, password: hash, name, about, avatar }))
+    .then((hash) => User.create({ email, password: hash, name }))
     .then((user) => {
       res.status(201).send({
         _id: user._id,
