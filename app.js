@@ -13,7 +13,7 @@ const auth = require("./middleware/auth");
 const usersRouter = require("./routes/users");
 const articleRouter = require("./routes/articles");
 
-// const { createUser, login } = require("./controllers/usersController");
+const { createUser, login } = require("./controllers/usersController");
 
 const conflictError = require("./errors/conflictError");
 const NotFoundError = require("./errors/NotFoundError");
@@ -40,27 +40,28 @@ mongoose.connect("mongodb://localhost:27017/newsdb", {
   useUnifiedTopology: true,
 });
 
-// app.post(
-//   "/signup",
-//   celebrate({
-//     body: Joi.object().keys({
-//       email: Joi.string().required().email(),
-//       password: Joi.string().required().min(10),
-//     }),
-//   }),
-//   createUser
-// );
+app.post(
+  "/signup",
+  celebrate({
+    body: Joi.object().keys({
+      email: Joi.string().required().email(),
+      password: Joi.string().required().min(10),
+      name: Joi.string().required().min(2),
+    }),
+  }),
+  createUser
+);
 
-// app.post(
-//   "/signin",
-//   celebrate({
-//     body: Joi.object().keys({
-//       email: Joi.string().required().email(),
-//       password: Joi.string().required().min(10),
-//     }),
-//   }),
-//   login
-// );
+app.post(
+  "/signin",
+  celebrate({
+    body: Joi.object().keys({
+      email: Joi.string().required().email(),
+      password: Joi.string().required().min(10),
+    }),
+  }),
+  login
+);
 
 app.use("/", auth, usersRouter);
 app.use("/", auth, articleRouter);
