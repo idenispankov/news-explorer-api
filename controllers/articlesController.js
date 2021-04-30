@@ -27,7 +27,7 @@ const deleteArticle = (req, res, next) => {
         Article.findByIdAndDelete({ _id: req.params.articleId }).then(() => {
           res
             .status(200)
-            .send({ message: "This Card has been succesfully deleted" });
+            .send({ message: "This Article has been succesfully deleted" });
         });
       }
     })

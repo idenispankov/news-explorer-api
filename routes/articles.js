@@ -11,26 +11,24 @@ const {
 // Get All Articles
 router.get("/articles", getArticles);
 
-// Create CArticle
+// Create Article
 router.post(
-  "/",
+  "/articles",
   celebrate({
-    body: Joi.object()
-      .keys({
-        keyword: Joi.string().required(),
-        title: Joi.string().required(),
-        text: Joi.string().required(),
-        date: Joi.string().required(),
-        source: Joi.string().required(),
-        link: Joi.string().required().uri(),
-        image: Joi.string().required().uri(),
-      })
-      .unknown(false),
+    body: Joi.object().keys({
+      keyword: Joi.string().required(),
+      title: Joi.string().required(),
+      text: Joi.string().required(),
+      date: Joi.string().required(),
+      source: Joi.string().required(),
+      link: Joi.string().required().uri(),
+      image: Joi.string().required().uri(),
+    }),
   }),
   createArticle
 );
 
-// Delete Card
+// Delete Article
 router.delete(
   "/articles/:articleId",
   celebrate({
