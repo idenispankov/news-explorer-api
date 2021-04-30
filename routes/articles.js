@@ -9,28 +9,33 @@ const {
 } = require("../controllers/articlesController");
 
 // Get All Articles
-router.get("/cards", getArticles);
+router.get("/articles", getArticles);
 
 // Create CArticle
 router.post(
-  "/cards",
+  "/",
   celebrate({
-    body: Joi.object().keys({
-      name: Joi.string().required().min(2).max(30),
-      link: Joi.string()
-        .uri({ scheme: ["http", "https"] })
-        .required(),
-    }),
+    body: Joi.object()
+      .keys({
+        keyword: Joi.string().required(),
+        title: Joi.string().required(),
+        text: Joi.string().required(),
+        date: Joi.string().required(),
+        source: Joi.string().required(),
+        link: Joi.string().required().uri(),
+        image: Joi.string().required().uri(),
+      })
+      .unknown(false),
   }),
   createArticle
 );
 
 // Delete Card
 router.delete(
-  "/cards/:articleId",
+  "/articles/:articleId",
   celebrate({
     params: Joi.object().keys({
-      cardId: Joi.string().hex().length(24),
+      articleId: Joi.string().hex().length(24),
     }),
   }),
   deleteArticle
