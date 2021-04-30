@@ -19,7 +19,10 @@ const conflictError = require("./errors/conflictError");
 const NotFoundError = require("./errors/NotFoundError");
 
 const app = express();
-const { PORT = 3000 } = process.env;
+const {
+  PORT = 3000,
+  DATABASEURL = "mongodb://localhost:27017/newsdb",
+} = process.env;
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -33,7 +36,7 @@ app.use(limiter);
 app.use(express.json());
 app.use(helmet());
 
-mongoose.connect("mongodb://localhost:27017/newsdb", {
+mongoose.connect(DATABASEURL, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
