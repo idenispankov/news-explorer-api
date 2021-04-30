@@ -11,9 +11,9 @@ const { requestLogger, errorLogger } = require("./middleware/logger");
 const auth = require("./middleware/auth");
 
 const usersRouter = require("./routes/users");
-// const cardsRouter = require("./routes/cards");
+const articleRouter = require("./routes/articles");
 
-const { createUser, login } = require("./controllers/usersController");
+// const { createUser, login } = require("./controllers/usersController");
 
 const conflictError = require("./errors/conflictError");
 const NotFoundError = require("./errors/NotFoundError");
@@ -63,7 +63,7 @@ mongoose.connect("mongodb://localhost:27017/newsdb", {
 // );
 
 app.use("/", auth, usersRouter);
-// app.use("/", auth, cardsRouter);
+app.use("/", auth, articleRouter);
 
 app.use("*", (req, res, next) => {
   next(new NotFoundError("Requested resource not found"));
