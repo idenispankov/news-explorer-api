@@ -32,7 +32,7 @@ const limiter = rateLimit({
 app.use(cors());
 app.options("*", cors());
 app.use(requestLogger);
-app.use(limiter);
+// app.use(limiter);
 app.use(express.json());
 app.use(helmet());
 
@@ -48,7 +48,7 @@ app.post(
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().required().email(),
-      password: Joi.string().required().min(10),
+      password: Joi.string().required(),
       name: Joi.string().required().min(2),
     }),
   }),
@@ -60,7 +60,7 @@ app.post(
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().required().email(),
-      password: Joi.string().required().min(10),
+      password: Joi.string().required(),
     }),
   }),
   login
