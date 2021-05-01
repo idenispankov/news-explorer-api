@@ -21,8 +21,12 @@ router.post(
       text: Joi.string().required(),
       date: Joi.string().required(),
       source: Joi.string().required(),
-      link: Joi.string().required().uri(),
-      image: Joi.string().required().uri(),
+      link: Joi.string()
+        .uri({ scheme: ["http", "https"] })
+        .required(),
+      image: Joi.string()
+        .uri({ scheme: ["http", "https"] })
+        .required(),
     }),
   }),
   createArticle
