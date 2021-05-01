@@ -27,7 +27,9 @@ const login = (req, res, next) => {
         res.status(200).send({
           token: jwt.sign(
             { _id: user._id },
-            NODE_ENV === "production" ? JWT_SECRET : "secret-string",
+            process.env.NODE_ENV === "production"
+              ? process.env.JWT_SECRET
+              : "secret-string",
             {
               expiresIn: "7d",
             }
