@@ -27,6 +27,7 @@ router.post(
       image: Joi.string()
         .uri({ scheme: ["http", "https"] })
         .required(),
+      owner: Joi.string().required(),
     }),
   }),
   createArticle
